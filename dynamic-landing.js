@@ -1,964 +1,458 @@
-/* =========================================
-   ZEPHRA DYNAMIC LANDING PAGE
-   TrackRFID Personalization
-   ========================================= */
+/*
+===========================================================
+ZEPHRA DYNAMIC LANDING PAGE
+URL-Based Personalization Layer
+===========================================================
+
+Purpose:
+Personalize selected landing-page content based on
+visitor context received through URL parameters.
+
+Supported parameters:
+- source
+- campaign
+- keyword
+- ad
+- debug
+
+Examples:
+?source=google&keyword=rfid-inventory-tracking
+?source=google&keyword=rfid-tool-tracking
+?source=google&keyword=rfid-reader
+?source=meta&ad=stop-losing-tools
+?debug=true
+
+Important:
+- We never display raw URL input.
+- URL values are only used to identify a known category.
+- If no known category is detected, the original page
+  remains unchanged.
+===========================================================
+*/
 
 
-/* =========================================
-   ELEMENTS
-   ========================================= */
+/* =========================================================
+   1. APPROVED PERSONALIZATION CONTENT
+   ========================================================= */
 
-const welcomeMessage =
-    document.getElementById("welcome-message");
-
-const headline =
-    document.querySelector('[data-dynamic="headline"]');
-
-const description =
-    document.querySelector('[data-dynamic="description"]');
-
-const cta =
-    document.querySelector('[data-dynamic="cta"]');
-
-const recommendationHeading =
-    document.querySelector('[data-dynamic="recommendation-heading"]');
-
-const recommendationText =
-    document.querySelector('[data-dynamic="recommendation-text"]');
-
-const benefitsHeading =
-    document.querySelector('[data-dynamic="benefits-heading"]');
-
-const benefitsDescription =
-    document.querySelector('[data-dynamic="benefits-description"]');
-
-const benefit1Title =
-    document.querySelector('[data-dynamic="benefit1-title"]');
-
-const benefit1Description =
-    document.querySelector('[data-dynamic="benefit1-description"]');
-
-const benefit2Title =
-    document.querySelector('[data-dynamic="benefit2-title"]');
-
-const benefit2Description =
-    document.querySelector('[data-dynamic="benefit2-description"]');
-
-const benefit3Title =
-    document.querySelector('[data-dynamic="benefit3-title"]');
-
-const benefit3Description =
-    document.querySelector('[data-dynamic="benefit3-description"]');
-
-const usecase =
-    document.querySelector('[data-dynamic="usecase"]');
-
-const usecaseDescription =
-    document.querySelector('[data-dynamic="usecase-description"]');
-
-const solution1 =
-    document.querySelector('[data-dynamic="solution1"]');
-
-const solution2 =
-    document.querySelector('[data-dynamic="solution2"]');
-
-const solution3 =
-    document.querySelector('[data-dynamic="solution3"]');
-
-const contactDescription =
-    document.querySelector('[data-dynamic="contact-description"]');
-
-
-/* =========================================
-   FORM ELEMENTS
-   ========================================= */
-
-const form =
-    document.getElementById("contact-form");
-
-const nameInput =
-    document.getElementById("name");
-
-const emailInput =
-    document.getElementById("email");
-
-const trackingType =
-    document.getElementById("tracking-type");
-
-const messageInput =
-    document.getElementById("message");
-
-const formMessage =
-    document.getElementById("form-message");
-
-
-/* =========================================
-   DASHBOARD VISUAL ELEMENTS
-   ========================================= */
-
-const heroVisual =
-    document.getElementById("hero-visual");
-
-const visualTitle =
-    document.getElementById("visual-title");
-
-const visualStatus =
-    document.getElementById("visual-status");
-
-const visualSubstatus =
-    document.getElementById("visual-substatus");
-
-
-const itemIcon1 =
-    document.getElementById("item-icon-1");
-
-const itemName1 =
-    document.getElementById("item-name-1");
-
-const itemDetail1 =
-    document.getElementById("item-detail-1");
-
-
-const itemIcon2 =
-    document.getElementById("item-icon-2");
-
-const itemName2 =
-    document.getElementById("item-name-2");
-
-const itemDetail2 =
-    document.getElementById("item-detail-2");
-
-
-const itemIcon3 =
-    document.getElementById("item-icon-3");
-
-const itemName3 =
-    document.getElementById("item-name-3");
-
-const itemDetail3 =
-    document.getElementById("item-detail-3");
-
-
-/* =========================================
-   PERSONALIZATION DATA
-   ========================================= */
-
-const personalizationData = {
+const personalizationConfig = {
 
     inventory: {
 
         headline:
-            "RFID Solutions for Smarter Inventory Management",
+            "Automate Inventory Tracking With RFID",
 
         description:
-            "Track inventory in real time, improve stock visibility and reduce manual counting with reliable RFID technology.",
+            "Improve inventory accuracy, streamline stock management, and gain better warehouse visibility.",
 
         cta:
-            "Track Your Inventory",
+            "Discuss Inventory Tracking",
 
-        recommendationHeading:
-            "Inventory tracking built for accuracy",
-
-        recommendationText:
-            "Get better visibility into stock movement, item availability and inventory updates.",
-
-        benefitsHeading:
-            "Know what you have and where it is.",
-
-        benefitsDescription:
-            "RFID helps inventory teams improve accuracy, reduce manual work and maintain better control over stock.",
-
-        benefit1Title:
-            "Real-Time Inventory Visibility",
-
-        benefit1Description:
-            "Monitor tagged inventory and quickly understand what is available and where it is located.",
-
-        benefit2Title:
-            "Reduce Manual Counting",
-
-        benefit2Description:
-            "Automate inventory identification and reduce repetitive manual scanning and counting.",
-
-        benefit3Title:
-            "Improve Stock Accuracy",
-
-        benefit3Description:
-            "Use reliable tracking information to reduce inventory errors and improve daily decisions.",
+        benefit:
+            "Improve Inventory Accuracy",
 
         usecase:
-            "Smarter Inventory. Better Visibility.",
-
-        usecaseDescription:
-            "Track stock movement, item locations and inventory levels using RFID technology.",
-
-        solution1:
-            "Inventory Management",
-
-        solution2:
-            "Stock Movement Tracking",
-
-        solution3:
-            "RFID Inventory Scanning",
-
-        contactDescription:
-            "Tell us about your inventory needs and we'll help you explore the right RFID tracking approach."
-
+            "Smarter Inventory and Warehouse Visibility"
     },
 
 
     tools: {
 
         headline:
-            "RFID Solutions for Tools & Equipment Tracking",
+            "Track Every Tool With RFID",
 
         description:
-            "Keep track of tools and equipment, improve asset visibility and reduce time spent searching for items.",
+            "Reduce lost equipment, improve tool visibility, and strengthen accountability across your operations.",
 
         cta:
-            "Track Your Equipment",
+            "Discuss Tool Tracking",
 
-        recommendationHeading:
-            "Equipment tracking made easier",
-
-        recommendationText:
-            "Improve visibility into tools, equipment locations and asset movement across your organization.",
-
-        benefitsHeading:
-            "Keep every tool and asset within reach.",
-
-        benefitsDescription:
-            "RFID technology helps teams know where equipment is, who is using it and when it was last tracked.",
-
-        benefit1Title:
-            "Know Where Equipment Is",
-
-        benefit1Description:
-            "Get clearer visibility into the current location of tagged tools and equipment.",
-
-        benefit2Title:
-            "Reduce Search Time",
-
-        benefit2Description:
-            "Quickly identify and locate equipment instead of relying on manual tracking processes.",
-
-        benefit3Title:
-            "Improve Asset Control",
-
-        benefit3Description:
-            "Maintain better records of equipment movement, availability and usage.",
+        benefit:
+            "Reduce Lost Equipment",
 
         usecase:
-            "Every Tool. Every Asset. Visible.",
-
-        usecaseDescription:
-            "Track tools and equipment across work areas, storage locations and operational environments.",
-
-        solution1:
-            "Tool Tracking",
-
-        solution2:
-            "Equipment Asset Management",
-
-        solution3:
-            "Asset Location Tracking",
-
-        contactDescription:
-            "Tell us what tools or equipment you need to track and we'll help you explore the right RFID approach."
-
+            "Tool and Equipment Tracking"
     },
 
 
-    warehouse: {
+    hardware: {
 
         headline:
-            "RFID Solutions for Smarter Warehouse Operations",
+            "RFID Readers for Reliable Tracking",
 
         description:
-            "Improve warehouse visibility, track item movement and create a more efficient flow of goods with RFID.",
+            "Choose the right RFID readers and hardware for reliable deployment and tracking performance.",
 
         cta:
-            "Improve Your Warehouse",
+            "Discuss RFID Hardware",
 
-        recommendationHeading:
-            "Warehouse visibility from entry to exit",
-
-        recommendationText:
-            "Track items across warehouse zones and improve visibility into movement and operations.",
-
-        benefitsHeading:
-            "Make every warehouse movement visible.",
-
-        benefitsDescription:
-            "RFID helps warehouse teams monitor items, improve operational visibility and reduce manual processes.",
-
-        benefit1Title:
-            "Track Warehouse Movement",
-
-        benefit1Description:
-            "Monitor tagged items as they move through different warehouse areas and operational zones.",
-
-        benefit2Title:
-            "Reduce Manual Processes",
-
-        benefit2Description:
-            "Automate identification and reduce repetitive scanning and recording tasks.",
-
-        benefit3Title:
-            "Improve Warehouse Decisions",
-
-        benefit3Description:
-            "Use better tracking information to improve inventory flow and daily warehouse operations.",
+        benefit:
+            "Choose the Right RFID Hardware",
 
         usecase:
-            "One Warehouse. Complete Visibility.",
-
-        usecaseDescription:
-            "Track items across receiving, storage, movement and dispatch using RFID technology.",
-
-        solution1:
-            "Warehouse Tracking",
-
-        solution2:
-            "Item Movement Monitoring",
-
-        solution3:
-            "Zone-Based RFID Tracking",
-
-        contactDescription:
-            "Tell us about your warehouse workflow and we'll help you explore the right RFID tracking approach."
-
+            "RFID Reader Deployment"
     }
 
 };
 
 
-/* =========================================
-   DASHBOARD VISUAL DATA
-   ========================================= */
+/* =========================================================
+   2. READ URL PARAMETERS
+   ========================================================= */
 
-const visualData = {
+function getUrlContext() {
 
-    inventory: {
+    const params = new URLSearchParams(window.location.search);
 
-        title:
-            "Inventory",
+    return {
 
-        status:
-            "Tracking Active",
+        source:
+            (params.get("source") || "").trim(),
 
-        substatus:
-            "Real-time stock visibility",
+        campaign:
+            (params.get("campaign") || "").trim(),
 
-        items: [
+        keyword:
+            (params.get("keyword") || "").trim(),
 
-            {
-                icon: "📦",
-                name: "Stock Items",
-                detail: "248 items tracked"
-            },
+        ad:
+            (params.get("ad") || "").trim(),
 
-            {
-                icon: "🏷️",
-                name: "RFID Tags",
-                detail: "96% visibility"
-            },
-
-            {
-                icon: "📊",
-                name: "Stock Updates",
-                detail: "Updated just now"
-            }
-
-        ]
-
-    },
+        debug:
+            (params.get("debug") || "").toLowerCase() === "true"
+    };
+}
 
 
-    tools: {
+/* =========================================================
+   3. DETERMINE PERSONALIZATION VARIANT
+   ========================================================= */
 
-        title:
-            "Tools & Equipment",
+function detectVariant(context) {
 
-        status:
-            "Equipment Tracking Active",
+    /*
+    Combine keyword, ad and campaign.
 
-        substatus:
-            "Asset location visibility",
+    We use these values only for matching known words.
+    We never put the visitor's URL text directly into
+    the webpage.
+    */
 
-        items: [
-
-            {
-                icon: "🛠️",
-                name: "Equipment Assets",
-                detail: "124 assets tracked"
-            },
-
-            {
-                icon: "🏷️",
-                name: "Asset Tags",
-                detail: "98% visibility"
-            },
-
-            {
-                icon: "📍",
-                name: "Locations",
-                detail: "Updated just now"
-            }
-
-        ]
-
-    },
+    const keyword = context.keyword.toLowerCase();
+    const ad = context.ad.toLowerCase();
+    const campaign = context.campaign.toLowerCase();
 
 
-    warehouse: {
+    /*
+    Keyword has the strongest priority.
+    */
 
-        title:
-            "Warehouse",
+    if (
+        keyword.includes("tool") ||
+        keyword.includes("equipment")
+    ) {
 
-        status:
-            "Warehouse Tracking Active",
-
-        substatus:
-            "Movement visibility enabled",
-
-        items: [
-
-            {
-                icon: "🏭",
-                name: "Warehouse Zones",
-                detail: "12 zones monitored"
-            },
-
-            {
-                icon: "📦",
-                name: "Tracked Items",
-                detail: "1,248 items tracked"
-            },
-
-            {
-                icon: "📍",
-                name: "Live Movement",
-                detail: "Updated just now"
-            }
-
-        ]
-
-    }
-
-};
-
-
-/* =========================================
-   UPDATE DASHBOARD VISUAL
-   ========================================= */
-
-function updateVisual(type) {
-
-    const visual = visualData[type];
-
-    if (!visual) {
-        return;
+        return "tools";
     }
 
 
-    if (visualTitle) {
-        visualTitle.textContent =
-            visual.title;
+    if (
+        keyword.includes("inventory") ||
+        keyword.includes("stock") ||
+        keyword.includes("warehouse")
+    ) {
+
+        return "inventory";
     }
 
 
-    if (visualStatus) {
-        visualStatus.textContent =
-            visual.status;
-    }
+    if (
+        keyword.includes("reader") ||
+        keyword.includes("hardware")
+    ) {
 
-
-    if (visualSubstatus) {
-        visualSubstatus.textContent =
-            visual.substatus;
-    }
-
-
-    if (itemIcon1) {
-        itemIcon1.textContent =
-            visual.items[0].icon;
-    }
-
-    if (itemName1) {
-        itemName1.textContent =
-            visual.items[0].name;
-    }
-
-    if (itemDetail1) {
-        itemDetail1.textContent =
-            visual.items[0].detail;
-    }
-
-
-    if (itemIcon2) {
-        itemIcon2.textContent =
-            visual.items[1].icon;
-    }
-
-    if (itemName2) {
-        itemName2.textContent =
-            visual.items[1].name;
-    }
-
-    if (itemDetail2) {
-        itemDetail2.textContent =
-            visual.items[1].detail;
-    }
-
-
-    if (itemIcon3) {
-        itemIcon3.textContent =
-            visual.items[2].icon;
-    }
-
-    if (itemName3) {
-        itemName3.textContent =
-            visual.items[2].name;
-    }
-
-    if (itemDetail3) {
-        itemDetail3.textContent =
-            visual.items[2].detail;
+        return "hardware";
     }
 
 
     /*
-       Add category class to the dashboard.
-       This allows CSS to give each category
-       a slightly different visual treatment.
+    If keyword does not identify a category,
+    check advertisement context.
     */
 
-    if (heroVisual) {
+    if (
+        ad.includes("tool") ||
+        ad.includes("equipment") ||
+        ad.includes("lost")
+    ) {
 
-        heroVisual.classList.remove(
-            "inventory",
-            "tools",
-            "warehouse"
+        return "tools";
+    }
+
+
+    if (
+        ad.includes("inventory") ||
+        ad.includes("stock") ||
+        ad.includes("warehouse")
+    ) {
+
+        return "inventory";
+    }
+
+
+    if (
+        ad.includes("reader") ||
+        ad.includes("hardware")
+    ) {
+
+        return "hardware";
+    }
+
+
+    /*
+    Finally check campaign context.
+    */
+
+    if (
+        campaign.includes("tool") ||
+        campaign.includes("equipment")
+    ) {
+
+        return "tools";
+    }
+
+
+    if (
+        campaign.includes("inventory") ||
+        campaign.includes("stock") ||
+        campaign.includes("warehouse")
+    ) {
+
+        return "inventory";
+    }
+
+
+    if (
+        campaign.includes("reader") ||
+        campaign.includes("hardware")
+    ) {
+
+        return "hardware";
+    }
+
+
+    /*
+    No known category.
+    Keep the original page unchanged.
+    */
+
+    return null;
+}
+
+
+/* =========================================================
+   4. APPLY PERSONALIZATION
+   ========================================================= */
+
+function applyPersonalization(variant, debugMode) {
+
+    /*
+    If no valid variant was detected,
+    do absolutely nothing.
+
+    This preserves the original page.
+    */
+
+    if (!variant || !personalizationConfig[variant]) {
+
+        if (debugMode) {
+
+            console.log("Detected Variant:", "Default");
+            console.log("Headline Changed:", "No");
+            console.log("CTA Changed:", "No");
+        }
+
+        return;
+    }
+
+
+    const content = personalizationConfig[variant];
+
+
+    /*
+    Find ONLY the approved dynamic elements.
+    */
+
+    const headline =
+        document.querySelector('[data-dynamic="headline"]');
+
+    const description =
+        document.querySelector('[data-dynamic="description"]');
+
+    const cta =
+        document.querySelector('[data-dynamic="cta"]');
+
+    const benefit =
+        document.querySelector('[data-dynamic="benefit"]');
+
+    const usecase =
+        document.querySelector('[data-dynamic="usecase"]');
+
+
+    /*
+    Replace selected content only.
+    */
+
+    if (headline) {
+
+        headline.textContent =
+            content.headline;
+    }
+
+
+    if (description) {
+
+        description.textContent =
+            content.description;
+    }
+
+
+    if (cta) {
+
+        cta.textContent =
+            content.cta;
+    }
+
+
+    if (benefit) {
+
+        benefit.textContent =
+            content.benefit;
+    }
+
+
+    if (usecase) {
+
+        usecase.textContent =
+            content.usecase;
+    }
+
+
+    /*
+    Debug information.
+    */
+
+    if (debugMode) {
+
+        console.log(
+            "Detected Variant:",
+            variant
         );
 
-        heroVisual.classList.add(type);
+        console.log(
+            "Headline Changed:",
+            headline ? "Yes" : "No"
+        );
 
+        console.log(
+            "CTA Changed:",
+            cta ? "Yes" : "No"
+        );
     }
-
 }
 
 
-/* =========================================
-   APPLY PERSONALIZATION
-   ========================================= */
+/* =========================================================
+   5. DEBUG INFORMATION
+   ========================================================= */
 
-function applyPersonalization(type) {
+function showDebugInfo(context, variant) {
 
-    const data =
-        personalizationData[type];
+    if (!context.debug) {
 
-    if (!data) {
         return;
     }
 
 
-    /* HERO */
-
-    headline.textContent =
-        data.headline;
-
-    description.textContent =
-        data.description;
-
-    cta.textContent =
-        data.cta;
-
-
-    /* RECOMMENDATION */
-
-    recommendationHeading.textContent =
-        data.recommendationHeading;
-
-    recommendationText.textContent =
-        data.recommendationText;
-
-
-    /* BENEFITS */
-
-    benefitsHeading.textContent =
-        data.benefitsHeading;
-
-    benefitsDescription.textContent =
-        data.benefitsDescription;
-
-
-    benefit1Title.textContent =
-        data.benefit1Title;
-
-    benefit1Description.textContent =
-        data.benefit1Description;
-
-
-    benefit2Title.textContent =
-        data.benefit2Title;
-
-    benefit2Description.textContent =
-        data.benefit2Description;
-
-
-    benefit3Title.textContent =
-        data.benefit3Title;
-
-    benefit3Description.textContent =
-        data.benefit3Description;
-
-
-    /* SOLUTIONS */
-
-    usecase.textContent =
-        data.usecase;
-
-    usecaseDescription.textContent =
-        data.usecaseDescription;
-
-
-    solution1.textContent =
-        data.solution1;
-
-    solution2.textContent =
-        data.solution2;
-
-    solution3.textContent =
-        data.solution3;
-
-
-    /* CONTACT */
-
-    contactDescription.textContent =
-        data.contactDescription;
-
-
-    /* KEEP DROPDOWN IN SYNC */
-
-    if (trackingType) {
-        trackingType.value = type;
-    }
-
-
-    /* UPDATE DASHBOARD */
-
-    updateVisual(type);
-
-}
-
-
-/* =========================================
-   PERSONALIZATION BUTTONS
-   ========================================= */
-
-function personalize(type) {
-
-    if (!personalizationData[type]) {
-        return;
-    }
-
-
-    applyPersonalization(type);
-
-
-    localStorage.setItem(
-        "visitorInterest",
-        type
+    console.group(
+        "ZEPHRA Dynamic Landing Page Debug"
     );
 
-}
 
-
-/* =========================================
-   DROPDOWN PERSONALIZATION
-   ========================================= */
-
-if (trackingType) {
-
-    trackingType.addEventListener(
-        "change",
-        function () {
-
-            const selectedType =
-                trackingType.value;
-
-
-            if (
-                personalizationData[selectedType]
-            ) {
-
-                applyPersonalization(
-                    selectedType
-                );
-
-
-                localStorage.setItem(
-                    "visitorInterest",
-                    selectedType
-                );
-
-            }
-
-        }
+    console.log(
+        "Source:",
+        context.source || "(none)"
     );
 
-}
 
-
-/* =========================================
-   RETURNING VISITOR
-   ========================================= */
-
-const hasVisited =
-    localStorage.getItem("hasVisited");
-
-
-if (hasVisited) {
-
-    welcomeMessage.textContent =
-        "WELCOME BACK";
-
-} else {
-
-    welcomeMessage.textContent =
-        "WELCOME";
-
-    localStorage.setItem(
-        "hasVisited",
-        "true"
+    console.log(
+        "Campaign:",
+        context.campaign || "(none)"
     );
 
+
+    console.log(
+        "Keyword:",
+        context.keyword || "(none)"
+    );
+
+
+    console.log(
+        "Ad:",
+        context.ad || "(none)"
+    );
+
+
+    console.log(
+        "Detected Variant:",
+        variant || "Default"
+    );
+
+
+    console.groupEnd();
 }
 
 
-/* =========================================
-   LOAD SAVED INTEREST
-   ========================================= */
+/* =========================================================
+   6. INITIALIZE PERSONALIZATION
+   ========================================================= */
 
-const savedInterest =
-    localStorage.getItem("visitorInterest");
+function initializePersonalization() {
+
+    const context =
+        getUrlContext();
 
 
-if (
-    savedInterest &&
-    personalizationData[savedInterest]
-) {
+    const variant =
+        detectVariant(context);
+
+
+    /*
+    Apply only approved content.
+    */
 
     applyPersonalization(
-        savedInterest
+        variant,
+        context.debug
     );
-
-} else {
-
-    /*
-       Default page when no interest
-       has been selected yet.
-    */
-
-    const hour =
-        new Date().getHours();
-
-
-    if (hour < 12) {
-
-        headline.textContent =
-            "Good Morning. Smarter RFID Tracking Starts Here.";
-
-        description.textContent =
-            "Improve visibility, accuracy and efficiency with reliable RFID tracking solutions.";
-
-        cta.textContent =
-            "Get Started";
-
-    } else if (hour < 18) {
-
-        headline.textContent =
-            "Smarter RFID Tracking for Your Business";
-
-        description.textContent =
-            "Improve visibility, accuracy and efficiency with reliable RFID tracking solutions.";
-
-        cta.textContent =
-            "Get Started";
-
-    } else {
-
-        headline.textContent =
-            "Build a Smarter Tracking Workflow";
-
-        description.textContent =
-            "Improve visibility, accuracy and efficiency with reliable RFID tracking solutions.";
-
-        cta.textContent =
-            "Get Started";
-
-    }
 
 
     /*
-       Default dashboard visual
+    Show debugging information when requested.
     */
 
-    updateVisual("inventory");
-
-}
-
-
-/* =========================================
-   CONTACT FORM SUBMISSION
-   ========================================= */
-
-if (form) {
-
-    form.addEventListener(
-        "submit",
-        function (event) {
-
-            event.preventDefault();
-
-
-            /* CLEAR OLD MESSAGE */
-
-            formMessage.textContent = "";
-
-            formMessage.className =
-                "form-message";
-
-
-            /* GET VALUES */
-
-            const name =
-                nameInput.value.trim();
-
-            const email =
-                emailInput.value.trim();
-
-            const selectedType =
-                trackingType.value;
-
-            const message =
-                messageInput.value.trim();
-
-
-            /* REQUIRED VALIDATION */
-
-            if (
-                !name ||
-                !email ||
-                !selectedType ||
-                !message
-            ) {
-
-                formMessage.textContent =
-                    "Please fill in all required fields.";
-
-                formMessage.classList.add(
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            /* EMAIL VALIDATION */
-
-            const emailPattern =
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-            if (
-                !emailPattern.test(email)
-            ) {
-
-                formMessage.textContent =
-                    "Please enter a valid email address.";
-
-                formMessage.classList.add(
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            /* INTEREST NAME */
-
-            const interestNames = {
-
-                inventory:
-                    "inventory",
-
-                tools:
-                    "tools and equipment",
-
-                warehouse:
-                    "warehouse"
-
-            };
-
-
-            const interestName =
-                interestNames[selectedType];
-
-
-            /* SUCCESS MESSAGE */
-
-            formMessage.textContent =
-                "Thanks " +
-                name +
-                "! Your " +
-                interestName +
-                " tracking request has been received.";
-
-
-            formMessage.classList.add(
-                "success"
-            );
-
-
-            /* SAVE LEAD INFORMATION */
-
-            localStorage.setItem(
-                "leadName",
-                name
-            );
-
-            localStorage.setItem(
-                "leadEmail",
-                email
-            );
-
-            localStorage.setItem(
-                "leadInterest",
-                selectedType
-            );
-
-            localStorage.setItem(
-                "visitorInterest",
-                selectedType
-            );
-
-
-            /* APPLY SELECTED PERSONALIZATION */
-
-            applyPersonalization(
-                selectedType
-            );
-
-
-            /* CLEAR MESSAGE FIELD */
-
-            messageInput.value = "";
-
-        }
+    showDebugInfo(
+        context,
+        variant
     );
-
 }
+
+
+/* =========================================================
+   7. RUN AFTER PAGE LOAD
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initializePersonalization
+);

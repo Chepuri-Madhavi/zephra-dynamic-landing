@@ -79,7 +79,7 @@
                 <div class="hero-text">
 
 
-                    <span class="eyebrow" id="welcome-message">
+                    <span class="eyebrow">
 
                         WELCOME
 
@@ -87,7 +87,9 @@
 
 
 
-                    <h1 data-dynamic="headline">
+                    <!-- URL PERSONALIZATION TARGET 1 -->
+
+                    <h1 id="hero-title" data-dynamic="headline">
 
                         RFID Solutions for Your Business
 
@@ -95,7 +97,9 @@
 
 
 
-                    <p data-dynamic="description">
+                    <!-- URL PERSONALIZATION TARGET 2 -->
+
+                    <p id="hero-description" data-dynamic="description">
 
                         Improve visibility, accuracy and efficiency
                         with reliable RFID tracking solutions.
@@ -107,7 +111,9 @@
                     <div class="hero-actions">
 
 
-                        <a href="#contact" class="primary-button" data-dynamic="cta">
+                        <!-- URL PERSONALIZATION TARGET 3 -->
+
+                        <a href="#contact" id="hero-cta" class="primary-button" data-dynamic="cta">
 
                             Get Started
 
@@ -142,57 +148,12 @@
                     </div>
 
 
-
-                    <!-- ============================= -->
-                    <!-- VISITOR INTEREST -->
-                    <!-- ============================= -->
-
-                    <div class="personalization">
-
-
-                        <p>
-                            What do you want to track?
-                        </p>
-
-
-
-                        <div class="personalization-buttons">
-
-
-                            <button onclick="personalize('inventory')">
-
-                                Inventory
-
-                            </button>
-
-
-
-                            <button onclick="personalize('tools')">
-
-                                Tools &amp; Equipment
-
-                            </button>
-
-
-
-                            <button onclick="personalize('warehouse')">
-
-                                Warehouse
-
-                            </button>
-
-
-                        </div>
-
-                    </div>
-
-
                 </div>
 
 
 
                 <!-- ============================= -->
-                <!-- DYNAMIC RFID DASHBOARD -->
+                <!-- RFID DASHBOARD -->
                 <!-- ============================= -->
 
                 <div class="hero-visual" id="hero-visual">
@@ -450,21 +411,21 @@
 
                     <span class="eyebrow">
 
-                        PERSONALIZED FOR YOU
+                        SMART RFID TRACKING
 
                     </span>
 
 
 
-                    <h2 data-dynamic="recommendation-heading">
+                    <h2>
 
-                        Recommended for you
+                        Recommended for modern operations
 
                     </h2>
 
 
 
-                    <p data-dynamic="recommendation-text">
+                    <p>
 
                         Explore RFID solutions designed to improve
                         your tracking workflow.
@@ -500,7 +461,7 @@
 
 
 
-                    <h2 data-dynamic="benefits-heading">
+                    <h2>
 
                         Track what matters with greater confidence.
 
@@ -508,7 +469,7 @@
 
 
 
-                    <p data-dynamic="benefits-description">
+                    <p>
 
                         RFID technology helps organizations improve
                         visibility and make better operational decisions.
@@ -536,7 +497,9 @@
 
 
 
-                        <h3 data-dynamic="benefit1-title">
+                        <!-- URL PERSONALIZATION TARGET 4 -->
+
+                        <h3 id="benefit-title" data-dynamic="benefit">
 
                             Improve Operational Visibility
 
@@ -544,7 +507,7 @@
 
 
 
-                        <p data-dynamic="benefit1-description">
+                        <p>
 
                             Get clearer information about your
                             assets and operations.
@@ -569,7 +532,7 @@
 
 
 
-                        <h3 data-dynamic="benefit2-title">
+                        <h3>
 
                             Reduce Manual Work
 
@@ -577,7 +540,7 @@
 
 
 
-                        <p data-dynamic="benefit2-description">
+                        <p>
 
                             Automate tracking processes and
                             reduce repetitive tasks.
@@ -602,7 +565,7 @@
 
 
 
-                        <h3 data-dynamic="benefit3-title">
+                        <h3>
 
                             Make Better Decisions
 
@@ -610,7 +573,7 @@
 
 
 
-                        <p data-dynamic="benefit3-description">
+                        <p>
 
                             Use accurate tracking information
                             to improve daily operations.
@@ -649,7 +612,9 @@
 
 
 
-                    <h2 data-dynamic="usecase">
+                    <!-- URL PERSONALIZATION TARGET 5 -->
+
+                    <h2 id="usecase-title" data-dynamic="usecase">
 
                         One Platform. Multiple Tracking Needs.
 
@@ -657,7 +622,7 @@
 
 
 
-                    <p data-dynamic="usecase-description">
+                    <p>
 
                         From inventory and warehouse operations
                         to tools and equipment, RFID can help you
@@ -673,7 +638,7 @@
                 <div class="use-case-list">
 
 
-                    <div data-dynamic="solution1">
+                    <div>
 
                         Inventory Management
 
@@ -681,7 +646,7 @@
 
 
 
-                    <div data-dynamic="solution2">
+                    <div>
 
                         Tool &amp; Equipment Tracking
 
@@ -689,7 +654,7 @@
 
 
 
-                    <div data-dynamic="solution3">
+                    <div>
 
                         RFID Reader Deployment
 
@@ -734,7 +699,7 @@
 
 
 
-                    <p data-dynamic="contact-description">
+                    <p>
 
                         Tell us what you need to track and
                         we'll help you explore the right RFID approach.
@@ -806,8 +771,7 @@
 
 
 
-                        <select id="tracking-type" name="tracking-type" required>
-
+                        <select id="tracking-type" name="tracking-type">
 
                             <option value="">
 
@@ -830,9 +794,9 @@
                             </option>
 
 
-                            <option value="warehouse">
+                            <option value="hardware">
 
-                                Warehouse
+                                RFID Hardware
 
                             </option>
 
@@ -875,7 +839,7 @@
 
 
 
-                    <!-- SUCCESS MESSAGE -->
+                    <!-- FORM MESSAGE -->
 
                     <p id="form-message" class="form-message">
 
