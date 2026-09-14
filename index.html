@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Smart RFID tracking solutions for inventory, tools, equipment and warehouse operations.">
+
+    <title>TrackRFID | Smart Tracking Solutions</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ============================= -->
+    <!-- NAVIGATION -->
+    <!-- ============================= -->
+
+    <header class="navbar">
+
+        <div class="container nav-content">
+
+            <div class="logo">
+                TrackRFID
+            </div>
+
+
+            <nav>
+
+                <a href="#solutions">
+                    Solutions
+                </a>
+
+                <a href="#benefits">
+                    Benefits
+                </a>
+
+                <a href="#contact">
+                    Contact
+                </a>
+
+            </nav>
+
+
+            <a href="#contact" class="nav-button">
+
+                Get Started
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <main>
+
+
+        <!-- ============================= -->
+        <!-- HERO SECTION -->
+        <!-- ============================= -->
+
+        <section class="hero">
+
+            <div class="container hero-content">
+
+
+                <!-- HERO TEXT -->
+
+                <div class="hero-text">
+
+
+                    <span class="eyebrow" id="welcome-message">
+
+                        WELCOME
+
+                    </span>
+
+
+
+                    <h1 data-dynamic="headline">
+
+                        RFID Solutions for Your Business
+
+                    </h1>
+
+
+
+                    <p data-dynamic="description">
+
+                        Improve visibility, accuracy and efficiency
+                        with reliable RFID tracking solutions.
+
+                    </p>
+
+
+
+                    <div class="hero-actions">
+
+
+                        <a href="#contact" class="primary-button" data-dynamic="cta">
+
+                            Get Started
+
+                        </a>
+
+
+
+                        <a href="#solutions" class="secondary-button">
+
+                            Explore Solutions
+
+                        </a>
+
+                    </div>
+
+
+
+                    <div class="trust-points">
+
+                        <span>
+                            ✓ Better visibility
+                        </span>
+
+                        <span>
+                            ✓ Improved accuracy
+                        </span>
+
+                        <span>
+                            ✓ Easy deployment
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- ============================= -->
+                    <!-- VISITOR INTEREST -->
+                    <!-- ============================= -->
+
+                    <div class="personalization">
+
+
+                        <p>
+                            What do you want to track?
+                        </p>
+
+
+
+                        <div class="personalization-buttons">
+
+
+                            <button onclick="personalize('inventory')">
+
+                                Inventory
+
+                            </button>
+
+
+
+                            <button onclick="personalize('tools')">
+
+                                Tools &amp; Equipment
+
+                            </button>
+
+
+
+                            <button onclick="personalize('warehouse')">
+
+                                Warehouse
+
+                            </button>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ============================= -->
+                <!-- DYNAMIC RFID DASHBOARD -->
+                <!-- ============================= -->
+
+                <div class="hero-visual" id="hero-visual">
+
+
+                    <div class="dashboard-card">
+
+
+                        <!-- DASHBOARD HEADER -->
+
+                        <div class="dashboard-header">
+
+
+                            <div>
+
+                                <span class="dashboard-label">
+
+                                    RFID TRACKING
+
+                                </span>
+
+
+                                <h3 id="visual-title">
+
+                                    Inventory
+
+                                </h3>
+
+                            </div>
+
+
+
+                            <span class="live-badge">
+
+                                ● LIVE
+
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- TRACKING STATUS -->
+
+                        <div class="tracking-status">
+
+
+                            <div class="status-icon">
+
+                                RFID
+
+                            </div>
+
+
+
+                            <div>
+
+                                <strong id="visual-status">
+
+                                    Tracking Active
+
+                                </strong>
+
+
+                                <span id="visual-substatus">
+
+                                    Real-time visibility enabled
+
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- TRACKING ITEMS -->
+
+                        <div class="tracking-items">
+
+
+                            <!-- ITEM 1 -->
+
+                            <div class="tracking-item">
+
+
+                                <div class="item-icon">
+
+                                    <span id="item-icon-1">
+                                        📦
+                                    </span>
+
+                                </div>
+
+
+                                <div class="item-info">
+
+                                    <strong id="item-name-1">
+
+                                        Stock Items
+
+                                    </strong>
+
+
+                                    <span id="item-detail-1">
+
+                                        248 items tracked
+
+                                    </span>
+
+                                </div>
+
+
+                                <span class="item-status">
+
+                                    Active
+
+                                </span>
+
+                            </div>
+
+
+
+                            <!-- ITEM 2 -->
+
+                            <div class="tracking-item">
+
+
+                                <div class="item-icon">
+
+                                    <span id="item-icon-2">
+                                        🏷️
+                                    </span>
+
+                                </div>
+
+
+                                <div class="item-info">
+
+                                    <strong id="item-name-2">
+
+                                        RFID Tags
+
+                                    </strong>
+
+
+                                    <span id="item-detail-2">
+
+                                        96% visibility
+
+                                    </span>
+
+                                </div>
+
+
+                                <span class="item-status">
+
+                                    Online
+
+                                </span>
+
+                            </div>
+
+
+
+                            <!-- ITEM 3 -->
+
+                            <div class="tracking-item">
+
+
+                                <div class="item-icon">
+
+                                    <span id="item-icon-3">
+                                        📊
+                                    </span>
+
+                                </div>
+
+
+                                <div class="item-info">
+
+                                    <strong id="item-name-3">
+
+                                        Tracking
+
+                                    </strong>
+
+
+                                    <span id="item-detail-3">
+
+                                        Updated just now
+
+                                    </span>
+
+                                </div>
+
+
+                                <span class="item-status">
+
+                                    Ready
+
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- DASHBOARD FOOTER -->
+
+                        <div class="dashboard-footer">
+
+
+                            <span>
+
+                                RFID system status
+
+                            </span>
+
+
+                            <span class="system-status">
+
+                                ● Operational
+
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!-- RECOMMENDATION SECTION -->
+        <!-- ============================= -->
+
+        <section class="recommendation">
+
+            <div class="container">
+
+
+                <div class="section-heading">
+
+
+                    <span class="eyebrow">
+
+                        PERSONALIZED FOR YOU
+
+                    </span>
+
+
+
+                    <h2 data-dynamic="recommendation-heading">
+
+                        Recommended for you
+
+                    </h2>
+
+
+
+                    <p data-dynamic="recommendation-text">
+
+                        Explore RFID solutions designed to improve
+                        your tracking workflow.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!-- BENEFITS SECTION -->
+        <!-- ============================= -->
+
+        <section class="benefits" id="benefits">
+
+            <div class="container">
+
+
+                <div class="section-heading">
+
+
+                    <span class="eyebrow">
+
+                        WHY RFID
+
+                    </span>
+
+
+
+                    <h2 data-dynamic="benefits-heading">
+
+                        Track what matters with greater confidence.
+
+                    </h2>
+
+
+
+                    <p data-dynamic="benefits-description">
+
+                        RFID technology helps organizations improve
+                        visibility and make better operational decisions.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="benefit-grid">
+
+
+                    <!-- BENEFIT 1 -->
+
+                    <article class="benefit-card">
+
+
+                        <div class="card-icon">
+
+                            01
+
+                        </div>
+
+
+
+                        <h3 data-dynamic="benefit1-title">
+
+                            Improve Operational Visibility
+
+                        </h3>
+
+
+
+                        <p data-dynamic="benefit1-description">
+
+                            Get clearer information about your
+                            assets and operations.
+
+                        </p>
+
+
+                    </article>
+
+
+
+                    <!-- BENEFIT 2 -->
+
+                    <article class="benefit-card">
+
+
+                        <div class="card-icon">
+
+                            02
+
+                        </div>
+
+
+
+                        <h3 data-dynamic="benefit2-title">
+
+                            Reduce Manual Work
+
+                        </h3>
+
+
+
+                        <p data-dynamic="benefit2-description">
+
+                            Automate tracking processes and
+                            reduce repetitive tasks.
+
+                        </p>
+
+
+                    </article>
+
+
+
+                    <!-- BENEFIT 3 -->
+
+                    <article class="benefit-card">
+
+
+                        <div class="card-icon">
+
+                            03
+
+                        </div>
+
+
+
+                        <h3 data-dynamic="benefit3-title">
+
+                            Make Better Decisions
+
+                        </h3>
+
+
+
+                        <p data-dynamic="benefit3-description">
+
+                            Use accurate tracking information
+                            to improve daily operations.
+
+                        </p>
+
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!-- SOLUTIONS SECTION -->
+        <!-- ============================= -->
+
+        <section class="use-case" id="solutions">
+
+            <div class="container use-case-content">
+
+
+                <div>
+
+
+                    <span class="eyebrow">
+
+                        USE CASE
+
+                    </span>
+
+
+
+                    <h2 data-dynamic="usecase">
+
+                        One Platform. Multiple Tracking Needs.
+
+                    </h2>
+
+
+
+                    <p data-dynamic="usecase-description">
+
+                        From inventory and warehouse operations
+                        to tools and equipment, RFID can help you
+                        know what you have and where it is.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="use-case-list">
+
+
+                    <div data-dynamic="solution1">
+
+                        Inventory Management
+
+                    </div>
+
+
+
+                    <div data-dynamic="solution2">
+
+                        Tool &amp; Equipment Tracking
+
+                    </div>
+
+
+
+                    <div data-dynamic="solution3">
+
+                        RFID Reader Deployment
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!-- CONTACT SECTION -->
+        <!-- ============================= -->
+
+        <section class="contact" id="contact">
+
+            <div class="container contact-box">
+
+
+                <!-- CONTACT INFORMATION -->
+
+                <div class="contact-info">
+
+
+                    <span class="eyebrow">
+
+                        GET STARTED
+
+                    </span>
+
+
+
+                    <h2>
+
+                        Let's build a smarter tracking workflow.
+
+                    </h2>
+
+
+
+                    <p data-dynamic="contact-description">
+
+                        Tell us what you need to track and
+                        we'll help you explore the right RFID approach.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <!-- ============================= -->
+                <!-- CONTACT FORM -->
+                <!-- ============================= -->
+
+                <form id="contact-form">
+
+
+                    <!-- NAME -->
+
+                    <div class="form-group">
+
+
+                        <label for="name">
+
+                            Name
+
+                        </label>
+
+
+
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+
+                        <label for="email">
+
+                            Email
+
+                        </label>
+
+
+
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+
+                    </div>
+
+
+
+                    <!-- TRACKING TYPE -->
+
+                    <div class="form-group">
+
+
+                        <label for="tracking-type">
+
+                            What do you want to track?
+
+                        </label>
+
+
+
+                        <select id="tracking-type" name="tracking-type" required>
+
+
+                            <option value="">
+
+                                Select an option
+
+                            </option>
+
+
+                            <option value="inventory">
+
+                                Inventory
+
+                            </option>
+
+
+                            <option value="tools">
+
+                                Tools &amp; Equipment
+
+                            </option>
+
+
+                            <option value="warehouse">
+
+                                Warehouse
+
+                            </option>
+
+
+                        </select>
+
+
+                    </div>
+
+
+
+                    <!-- MESSAGE -->
+
+                    <div class="form-group">
+
+
+                        <label for="message">
+
+                            Message
+
+                        </label>
+
+
+
+                        <textarea id="message" name="message" rows="4" placeholder="Tell us what you need..."
+                            required></textarea>
+
+
+                    </div>
+
+
+
+                    <!-- SUBMIT -->
+
+                    <button type="submit" class="primary-button">
+
+                        Send Request
+
+                    </button>
+
+
+
+                    <!-- SUCCESS MESSAGE -->
+
+                    <p id="form-message" class="form-message">
+
+                    </p>
+
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ============================= -->
+    <!-- FOOTER -->
+    <!-- ============================= -->
+
+    <footer>
+
+
+        <div class="container footer-content">
+
+
+            <span>
+
+                © 2026 TrackRFID
+
+            </span>
+
+
+
+            <span>
+
+                Smart tracking solutions
+
+            </span>
+
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- ============================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================= -->
+
+    <script src="dynamic-landing.js"></script>
+
+
+</body>
+
+</html>
